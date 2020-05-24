@@ -70,7 +70,7 @@ if __name__ == "__main__":
     initial_state = "Entry"
     iterations = 11
 
-    offered_weight = [1, 3, 1.8, 0.01, 0.01, 0.01, 0.01, 15.5, 0.01, 0.01, 0.01]
+    offered_weight = [1, 1, 1, 1, 1, 1, 1, 150, 1, 1, 1]
 
     markov = MarkovAnalysis(states, initial_state, offered_weight)
 
@@ -95,8 +95,8 @@ if __name__ == "__main__":
     markov.add_transition("Visualizzare\nristorante",       "Scrivere\nrecensione",             0.10)
     markov.add_transition("Scrivere\nrecensione",           "Visualizzare\nristorante",         0.30)
     markov.add_transition("Scrivere\nrecensione",           "Caricamento file\nmultimediali",   0.50)
-    markov.add_transition("Aggiungere\npiatti",             "Visualizzare\nristorante",         0.30)
-    markov.add_transition("Aggiungere\npiatti",             "Paga",                             0.60)
+    markov.add_transition("Aggiungere\npiatti",             "Visualizzare\nristorante",         0.45)
+    markov.add_transition("Aggiungere\npiatti",             "Paga",                             0.45)
     markov.add_transition("Paga",                           "Naviga",                           0.25)
     markov.add_transition("Paga",                           "Ricerca",                          0.25)
 
@@ -122,12 +122,12 @@ if __name__ == "__main__":
 
     markov.show_history()
 
-    ax = pd.DataFrame(markov.states_probabilities_weighted[[0,1,2,7]] * 100).plot(kind='bar', rot=45)
+    ax = pd.DataFrame(markov.states_probabilities_weighted[[0,1,2,7]]).plot(kind='bar', rot=45)
     ax.set_xlabel("Azioni dell'utente")
-    ax.legend(["Peso dei trasferimenti relativo alla frequenza"])
+    ax.legend(["Peso sul network moltiplicato per la frequenza"])
     plt.show()
 
-    ax = pd.DataFrame(final_result * 100).plot(kind='bar', rot=45)
+    ax = pd.DataFrame(final_result).plot(kind='bar', rot=45)
     ax.set_xlabel("Azioni dell'utente")
     ax.legend(["Probabilità percentuale"])
     plt.show()

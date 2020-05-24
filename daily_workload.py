@@ -45,7 +45,11 @@ class DailyGraph():
         fig, ax = plt.subplots(figsize=(9, 6))
         plt.plot(self._x, y, color='k', lw=2, path_effects=[
             pe.Stroke(linewidth=5, foreground='b'), pe.Normal()])
-        plt.plot(np.linspace(0, 24, 25), y[(np.linspace(0, 1, 25)*499).astype(np.int)], 'ro')
+
+        hour_function = y[(np.linspace(0, 1, 25)*499).astype(np.int)]
+        print(hour_function)
+
+        plt.plot(np.linspace(0, 24, 25), hour_function, 'ro')
         ax.fill_between(self._x, y, 0, alpha=0.1, color='b')
         ax.set_xlim([-0, 25])
         ax.set_xticks(np.arange(0, 25, 1))
@@ -67,8 +71,8 @@ def normal_day(time_shift=None):
 
 
 def weekend_day(time_shift=None):
-    weekend_day_data = DailyData(w_1=1.2/6, w_2=2/6, w_3=3.4/6, mu_1=8, mu_2=12,
-                                 mu_3=20, sigma_1=1, sigma_2=1.5, sigma_3=2.6)
+    weekend_day_data = DailyData(w_1=1.2/6, w_2=2/6, w_3=3.1/6, mu_1=8, mu_2=12,
+                                 mu_3=20, sigma_1=1, sigma_2=1.5, sigma_3=2.3)
     weekend_daily_graph = DailyGraph(weekend_day_data, time_shift=time_shift)
     weekend_daily_graph.run(file_name='week_end_daily_graph.png', title="Probabilty distribution during the weekend days." +
                             ((" GMT" + str(time_shift)) if time_shift != None else ""))
